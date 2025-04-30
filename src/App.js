@@ -1,12 +1,50 @@
-const parent=React.createElement("div",
-  {id:"root"},
-  React.createElement.("div",{id:"child"},
-      React.createElement("h1",{},
-          "im a h1 tag"
-      )
-  )
+import React from "react";
+import Title from "./Components/Title";
+import Body from "./Components/Body";
+import About from "./Components/About";
+import { Outlet, createBrowserRouter } from "react-router-dom";
+import ContactUs from "./Components/Contactus";
+import Menu from "./Components/Menu";
+import ThemeProvider from "./Components/ThemeProvider";
+ 
+const App = () => {
+  return(
+    <ThemeProvider>
+          <div >
+          <Title />  
+          <Outlet /> 
+          </div>
+      </ThemeProvider>
+        
+  );
+  
+}
 
-);
-console.log(parent);
-const root=ReactDOM.createRoot(document.getElementById("root"));
-root.render(parent);
+export const AppRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "/",
+        element: <Body />
+      },
+      {
+        path: "/about",
+        element: <About />
+      },
+      {
+        path:"/contact",
+        element:<ContactUs />
+      },
+      {
+        path:"/restaurants/:resId",
+        element:<Menu />
+      }
+      
+    ],
+  }
+])
+
+
+export default App;
