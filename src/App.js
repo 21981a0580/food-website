@@ -6,15 +6,21 @@ import { Outlet, createBrowserRouter } from "react-router-dom";
 import ContactUs from "./Components/Contactus";
 import Menu from "./Components/Menu";
 import ThemeProvider from "./Components/ThemeProvider";
- 
+ import {Provider} from "react-redux";
+import appStore from "./utils/appStore";
+import Cart from "./Components/Cart";
+
+
 const App = () => {
   return(
+    <Provider store={appStore }>
     <ThemeProvider>
           <div >
           <Title />  
           <Outlet /> 
           </div>
       </ThemeProvider>
+    </Provider>
         
   );
   
@@ -40,6 +46,11 @@ export const AppRouter = createBrowserRouter([
       {
         path:"/restaurants/:resId",
         element:<Menu />
+      },
+      {
+        path:"/cart",
+        element:<Cart />
+
       }
       
     ],

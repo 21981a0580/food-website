@@ -3,6 +3,7 @@ import { RES_MENU } from "../utils/Constants";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import { useTheme } from "./ThemeProvider"; // Importing the theme context
+import MenuCategory from "./MenuCategory";
 
 const Menu = () => {
   const [menuInfo, setMenuInfo] = useState(null);
@@ -34,6 +35,11 @@ const Menu = () => {
   }
 
   const { name, cuisines, avgRating } = restaurantInfo;
+  const categories=menuInfo?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+    (c)=>
+        c.card?.["card"]?.["@type"]==="type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+  );
+
 
   return (
     <div
@@ -64,73 +70,12 @@ const Menu = () => {
         >
           ⭐ Average Rating: {avgRating}
         </p>
+        {categories.map((category) =>(
+          <MenuCategory key={category?.card?.card?.data?.title} data={category?.card?.card}/>
+        ))}
       </div>
 
-      {/* Divider */}
-      <hr
-        className={`${
-          theme === "dark" ? "border-gray-600" : "border-gray-300"
-        } mb-10`}
-      />
-
-      {/* Menu List Section */}
-      <div>
-        <h2
-          className={`${
-            theme === "dark" ? "text-white" : "text-gray-700"
-          } text-2xl font-semibold mb-6`}
-        >
-          Menu
-        </h2>
-        <ul className="space-y-6">
-          {menuList.map((itemCard, index) => {
-            const item = itemCard?.card?.info;
-            return (
-              <li
-                key={item?.id || index}
-                className={`${
-                  theme === "dark" ? "bg-gray-800" : "bg-white"
-                } p-4 rounded shadow-sm hover:shadow-md transition duration-200`}
-              >
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h3
-                      className={`${
-                        theme === "dark" ? "text-white" : "text-gray-800"
-                      } text-lg font-medium`}
-                    >
-                      {item?.name}
-                    </h3>
-                    <p
-                      className={`${
-                        theme === "dark" ? "text-gray-400" : "text-gray-500"
-                      } text-sm`}
-                    >
-                      ₹{(item?.price || item?.defaultPrice) / 100}
-                    </p>
-                  </div>
-                  {item?.imageId && (
-                    <img
-                      src={`https://media-assets.swiggy.com/swiggy/image/upload/${item.imageId}`}
-                      alt={item.name}
-                      className="w-16 h-16 rounded object-cover ml-4"
-                    />
-                  )}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-
-      {/* Background for Menu Opening in Dark Mode */}
-      <div
-        className={`${
-          theme === "dark" ? "bg-gray-800" : "bg-gray-100"
-        } p-4 rounded-lg shadow-sm mt-10`}
-      >
-        {/* This section can be used for displaying additional details or menu options in the future */}
-      </div>
+     
     </div>
   );
 };

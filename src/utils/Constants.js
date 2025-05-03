@@ -1,2 +1,3 @@
+export const ITEM_LIST_URL="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/";
 export const RES_URL="https://www.swiggy.com/dapi/restaurants/search/v3?lat=17.38430&lng=78.45830&str=Biryani&trackingId=undefined&submitAction=ENTER&queryUniqueId=e439a531-2bf9-3aaa-0599-87e09d958848&selectedPLTab=RESTAURANT";
 export const RES_MENU="https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=17.38430&lng=78.45830&restaurantId=";
